@@ -17,6 +17,8 @@ name_var = tk.StringVar()
 email_var = tk.StringVar()
 Product_var = tk.IntVar(value=0)
 description_var = tk.BooleanVar()
+instore_var = tk.BooleanVar(value=False)
+online_var = tk.BooleanVar(value=False)
 
 # ---------- LAYOUT ----------
 frame = ttk.Frame(root, padding="10")
@@ -39,6 +41,8 @@ Product_spinbox.grid(column=1, row=2, sticky=tk.W)
 
 # Descrition checkbox
 description_cb = ttk.Checkbutton(frame, text="-in-store", variable=description_var)
+description_cb.grid(columnspan=2, row=3, sticky=tk.W)
+description_cb = ttk.Checkbutton(frame, text="online", variable=description_var)
 description_cb.grid(columnspan=2, row=3, sticky=tk.W)
 
 # Submit button
@@ -74,7 +78,9 @@ def collect_data() -> dict:
         "name": name_var.get().strip(),
         "email": email_var.get().strip(),
         "age": Product_var.get(),
-        "newsletter": description_var.get(),
+        "description": description_var.get(),
+        "instore": instore_var.get(),
+        "online": online_var.get(),
     }
 
 
