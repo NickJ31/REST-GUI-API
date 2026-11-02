@@ -5,6 +5,7 @@ import tkinter as tk
 from tkinter import ttk, messagebox
 import json
 import urllib.request  # part of stdlib; no external libs needed
+import urllib.error
 
 API_URL = "http://localhost:5000/submit"
 
@@ -39,11 +40,13 @@ ttk.Label(frame, text="Product:").grid(column=0, row=2, sticky=tk.W)
 Product_spinbox = ttk.Spinbox(frame, from_=0, to=120, textvariable=Product_var, width=5)
 Product_spinbox.grid(column=1, row=2, sticky=tk.W)
 
-# Descrition checkbox
-description_cb = ttk.Checkbutton(frame, text="-in-store", variable=description_var)
-description_cb.grid(columnspan=2, row=3, sticky=tk.W)
-description_cb = ttk.Checkbutton(frame, text="online", variable=description_var)
-description_cb.grid(columnspan=2, row=3, sticky=tk.W)
+# In-store checkbox
+instore_cb = ttk.Checkbutton(frame, text="In-store", variable=instore_var)
+instore_cb.grid(column=0, row=3, sticky=tk.W)
+
+# Online checkbox
+online_cb = ttk.Checkbutton(frame, text="Online", variable=online_var)
+online_cb.grid(column=1, row=3, sticky=tk.W)
 
 # Submit button
 submit_btn = ttk.Button(frame, text="Submit", command=lambda: submit_form())
@@ -77,8 +80,7 @@ def collect_data() -> dict:
     return {
         "name": name_var.get().strip(),
         "email": email_var.get().strip(),
-        "age": Product_var.get(),
-        "description": description_var.get(),
+        "price": Product_var.get(),
         "instore": instore_var.get(),
         "online": online_var.get(),
     }
